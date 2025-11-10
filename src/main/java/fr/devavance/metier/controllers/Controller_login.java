@@ -56,18 +56,28 @@ public class Controller_login extends HttpServlet implements IController {
         String password = request.getParameter(KEY_PASSWORD);
 
         try {
-            verify_credential(login, password);
+            verify_credential(login, password); 
 
             // Si pass
             HttpSession session = request.getSession(true);
             session.setAttribute(KEY_IS_CONNECTED, CONNECTED);
             session.setAttribute(KEY_LOGIN, login);
 
-            dispatch(CONTROLLER, request, response);
+            response.getWriter().println("""
+                <!DOCTYPE html>
+                <html>
+                <head><meta charset='UTF-8'><title>Résultat</title></head>
+                <body>
+                    <h2>Connecte</h2>
+                    <a href='login'>Retour</a>
+                </body>
+                </html>
+            """.formatted(login));
 
         } catch (CredentialException | LoginException e) {
             // Message d'erreur renvoyé à la vue login
             request.setAttribute("error", e.getMessage());
+            
             dispatch(VUE_LOGIN, request, response);
         }
     }
