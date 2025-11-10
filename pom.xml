@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fr.devavance</groupId>
+    <artifactId>tp2_auth_v1</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>tp2_auth_v1</name>
+
+    <!-- ========================================================= -->
+    <!-- 🔧 Configuration générale -->
+    <!-- ========================================================= -->
+    <properties>
+        <!-- Choisis la version de Java que tu utilises -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+
+        <!-- Jakarta EE -->
+        <jakartaee>8.0.0</jakartaee>
+    </properties>
+
+    <!-- ========================================================= -->
+    <!-- 📦 Dépendances -->
+    <!-- ========================================================= -->
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${jakartaee}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- ========================================================= -->
+    <!-- ⚙️ Build / Plugins -->
+    <!-- ========================================================= -->
+    <build>
+        <finalName>${project.artifactId}</finalName>
+
+        <plugins>
+
+            <!-- 🔧 Plugin Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>${maven.compiler.source}</release>
+                </configuration>
+            </plugin>
+
+            <!-- 🧱 Plugin WAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <!-- 📦 Plugin Dependency (si tu veux copier des libs spécifiques) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-jakarta</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/endorsed</outputDirectory>
+                            <silent>true</silent>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>jakarta.platform</groupId>
+                                    <artifactId>jakarta.jakartaee-api</artifactId>
+                                    <version>${jakartaee}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
