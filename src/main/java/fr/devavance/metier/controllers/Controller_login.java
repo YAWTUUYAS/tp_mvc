@@ -62,17 +62,9 @@ public class Controller_login extends HttpServlet implements IController {
             HttpSession session = request.getSession(true);
             session.setAttribute(KEY_IS_CONNECTED, CONNECTED);
             session.setAttribute(KEY_LOGIN, login);
+            
+            response.sendRedirect("controller");
 
-            response.getWriter().println("""
-                <!DOCTYPE html>
-                <html>
-                <head><meta charset='UTF-8'><title>Résultat</title></head>
-                <body>
-                    <h2>Connecte</h2>
-                    <a href='login'>Retour</a>
-                </body>
-                </html>
-            """.formatted(login));
 
         } catch (CredentialException | LoginException e) {
             // Message d'erreur renvoyé à la vue login

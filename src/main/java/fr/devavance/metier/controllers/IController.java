@@ -34,6 +34,8 @@ public interface IController {
     String ACTION_LOGIN = "login";
     String ACTION_SEANCE="seance";
     
+    String ACTION_HOME = "home";
+    String ACTION_LOGOUT = "logout";
 
     
     // Utilisés pour le partage des informations en tant que clefs

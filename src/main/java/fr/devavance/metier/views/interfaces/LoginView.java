@@ -49,12 +49,12 @@ public class LoginView extends HttpServlet implements IServletView {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response); // ✅ GET -> même rendu
+        processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response); // ✅ POST -> même rendu (utile si on revient sur /login via POST)
+        processRequest(request, response);
     }
 }
